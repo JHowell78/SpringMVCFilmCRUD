@@ -1,9 +1,10 @@
-package com.skilldistillery.film.entities;
+package com.skilldistillery.film.tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,6 +16,11 @@ public class FilmTest {
 
 	@AfterClass
 	public static void teardownAfterClass() throws Exception {
+
+	}
+
+	@Before
+	public void setUp() throws Exception {
 
 	}
 
