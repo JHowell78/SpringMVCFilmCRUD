@@ -29,7 +29,7 @@ public class FilmController {
 	}
 	
 	@RequestMapping(path = "getFilmsKeyword.do", params = "keyword", method = RequestMethod.GET)
-	public ModelAndView getFilmByKeyword(String keyword) {
+	public ModelAndView getFilmByKeyword(@RequestParam String keyword) {
 		ModelAndView mv = new ModelAndView();
 		List <Film> films = dao.findFilmByKeyword(keyword);
 		mv.addObject("filmByKeyword", films);
