@@ -9,21 +9,25 @@
 <title>Film By ID</title>
 </head>
 <body>
+
+
+
+<div class="container">
+
     <h2>Find film by keyword: </h2>
+    
     <c:choose>
+    
         <c:when test="${! empty findFilmByKeyword}">
-            <ul>
-                <li>${filmByKeyword}</li>
-            </ul>
-        </c:when>
         
-        
+		<c:forEach var="films" items="${films }">
+
+		</c:forEach>
+		</c:when>
+
         <c:otherwise>
             <p>No film found</p>
         </c:otherwise>
     </c:choose>
-</body>
-</html>
-
 </body>
 </html>
