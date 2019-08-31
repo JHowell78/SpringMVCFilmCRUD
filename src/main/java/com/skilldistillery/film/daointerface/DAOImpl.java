@@ -56,7 +56,6 @@ public class DAOImpl implements DAOInterface {
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));
 				film.setCategory(findCategory(filmId).getCategory());
-				
 				film.setActor(findActorsByFilmId(filmId));  
 			}
 			filmResult.close();
@@ -116,6 +115,15 @@ public class DAOImpl implements DAOInterface {
 				film.setDescription(filmResult.getString("description"));
 				film.setReleasYear(filmResult.getInt("release_Year"));
 				film.setRating(filmResult.getString("rating"));
+//				film.setLanguage(filmResult.getString("name"));
+//				film.setRentalDuration(filmResult.getInt("rental_duration"));
+//				film.setRental_rate(filmResult.getDouble("rental_rate"));
+//				film.setLength(filmResult.getInt("length"));
+//				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
+//				film.setRating(filmResult.getString("rating"));
+//				film.setSpecialFeatures(filmResult.getString("special_features"));
+//				film.setCategory(findCategory(film.getId()).getCategory());
+//				film.setActor(findActorsByFilmId(film.getId()));  
 				films.add(film);
 
 			}
