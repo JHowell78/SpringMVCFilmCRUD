@@ -53,6 +53,11 @@ public class FilmController {
 		return mv;
 	}
 	
+<<<<<<< HEAD
+	//    ls
+//	GET      POST    PUT    DELETE       ---- PUT UPDATES
+=======
 	// GET      POST    PUT    DELETE       ---- PUT UPDATES
+>>>>>>> eb3ad85f47048a7f6937b587925ea9d5c2d899a8
 
 }
