@@ -16,5 +16,8 @@ import com.skilldistillery.film.entities.Film;
 		public List<Actor> findActorsByFilmId(int filmId);
 
 		public List<Film> findFilmByKeyword(String filmTitle);
+
+		public Film createFilm(Film film);
+		
 		
 	}

@@ -40,7 +40,7 @@ public class FilmController {
 	@RequestMapping(path = "ADDFILM.do", method = RequestMethod.POST)
 	public ModelAndView addFilm(Film film, RedirectAttributes redir){
 		ModelAndView mv = new ModelAndView(); 
-//		dao.createFilm(film);
+		dao.createFilm(film);
 		redir.addFlashAttribute("filmAdd", film);
 		mv.setViewName("redirect:filmAdded.do");
 		return mv; 

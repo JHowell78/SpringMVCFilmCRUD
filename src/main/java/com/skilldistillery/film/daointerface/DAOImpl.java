@@ -16,7 +16,7 @@ import com.skilldistillery.film.entities.Film;
 
 @Component
 public class DAOImpl implements DAOInterface {
-	
+
 	private static final String url = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
 	private final String userName = "student";
 	private final String password = "student";
@@ -30,7 +30,7 @@ public class DAOImpl implements DAOInterface {
 	}
 
 	@Override
-	public Film findFilmById(int filmId) {     // FIND FILM BY ID - ACCESSES THE DATABASE AND RETURNS FILM      //// USER STORY 1 
+	public Film findFilmById(int filmId) { // FIND FILM BY ID - ACCESSES THE DATABASE AND RETURNS FILM //// USER STORY 1
 		Film film = null;
 
 		try {
@@ -56,8 +56,7 @@ public class DAOImpl implements DAOInterface {
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));
 				film.setCategory(findCategory(filmId).getCategory());
-				
-				film.setActor(findActorsByFilmId(filmId));  
+				film.setActor(findActorsByFilmId(filmId));
 			}
 			filmResult.close();
 			stmt.close();
@@ -69,7 +68,8 @@ public class DAOImpl implements DAOInterface {
 		return film;
 	}
 
-	public Film findCategory(int filmId) {     // FINDS A FILM CATEGORY - ACCESSES THE DATABASE AND RETURNS FILM CATEGORIES    /// USER STORY 6
+	public Film findCategory(int filmId) { // FINDS A FILM CATEGORY - ACCESSES THE DATABASE AND RETURNS FILM CATEGORIES
+											// /// USER STORY 6
 		Film film = null;
 
 		try {
@@ -94,7 +94,8 @@ public class DAOImpl implements DAOInterface {
 	}
 
 	@Override
-	public List<Film> findFilmByKeyword(String filmTitle) {     // // FINDS A FILM BY KEYWORD - ACCESSES THE DATABASE AND RETURNS FILM     USER STORY 5, THEN ROUTE TO UPDATE OR DELETE
+	public List<Film> findFilmByKeyword(String filmTitle) { // // FINDS A FILM BY KEYWORD - ACCESSES THE DATABASE AND
+															// RETURNS FILM USER STORY 5, THEN ROUTE TO UPDATE OR DELETE
 		List<Film> films = new ArrayList<>();
 
 		try {
@@ -129,7 +130,8 @@ public class DAOImpl implements DAOInterface {
 	}
 
 	@Override
-	public List<Actor> findActorsByFilmId(int filmId) {   // // FINDS ACTORS BY FILM - ACCESSES THE DATABASE AND RETURNS ACTORS BY FILM     //USER STORY 6
+	public List<Actor> findActorsByFilmId(int filmId) { // // FINDS ACTORS BY FILM - ACCESSES THE DATABASE AND RETURNS
+														// ACTORS BY FILM //USER STORY 6
 		List<Actor> actors = new ArrayList<>();
 
 		try {
@@ -159,6 +161,64 @@ public class DAOImpl implements DAOInterface {
 		return actors;
 	}
 
+//	@Override
+//	public Actor findActorById(int actorId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+//	@Override
+//	public Actor findActorById(int actorId) {   // NOT USED YET - CAN RETRIEVE FROM LAST WEEK'S GIT HUB
+//		return null;
+//	}
+
+//	INSERT METHOD  --- MODIFY TO FIT PROJECT      CREATE ACTOR      /// MODIFY TO ADD FILM WITH ALL CATEGORIES    // USER STORY 4
+
+	public Film createFilm(Film film) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, userName, password);
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql = "INSERT INTO film (title, description, releasYear, languageId, rentalDuration, rental_rate, length, replacement_cost, rating, specialFeatures) "
+					+ " VALUES (?,?)";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleasYear());
+			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRental_rate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplacement_cost());
+			stmt.setString(9, film.getRating());
+			stmt.setString(10, film.getSpecialFeatures());
+			
+			int updateCount = stmt.executeUpdate();
+			if (updateCount == 1) {
+				ResultSet keys = stmt.getGeneratedKeys();
+				if (keys.next()) {
+					int newFilmId = keys.getInt(1);
+					film.setId(newFilmId);
+					}
+			} else {
+				film = null;
+			}
+			conn.commit(); // COMMIT TRANSACTION
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			throw new RuntimeException("Error inserting film " + film);
+		}
+		return film;
+	}
+
 	@Override
 	public Actor findActorById(int actorId) {
 		// TODO Auto-generated method stub
@@ -166,13 +226,6 @@ public class DAOImpl implements DAOInterface {
 	}
 }
 
-//	@Override
-//	public Actor findActorById(int actorId) {   // NOT USED YET - CAN RETRIEVE FROM LAST WEEK'S GIT HUB
-//		return null;
-//	}
-	
-//	INSERT METHOD  --- MODIFY TO FIT PROJECT      CREATE ACTOR      /// MODIFY TO ADD FILM WITH ALL CATEGORIES    // USER STORY 4
-	
 //	public Actor createActor(Actor actor) {
 //		  Connection conn = null;
 //		  try {
@@ -290,7 +343,5 @@ public class DAOImpl implements DAOInterface {
 //		}
 //	
 //	
-	
+
 //}
-
-

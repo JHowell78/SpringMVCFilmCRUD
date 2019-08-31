@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AddFilm</title>
+</head>
+<body>
+    <h3>Add a New Film</h3>
+    <form action="ADDFILM.do" method="POST">
+    
+        Title: <input type="text" name="title" /> <br> 
+        Description: <input type="text" name="description" /> <br> 
+        Release Year: <input type="text" name="release_year" /> <br> 
+        Language: <input
+            type="radio" name="language_id" value="1">English <input
+            type="radio" name="language_id" value="2">Italian <input
+            type="radio" name="language_id" value="3">Japanese <input
+            type="radio" name="language_id" value="4">Mandarin <input
+            type="radio" name="language_id" value="5">French <input
+            type="radio" name="language_id" value="6">German <br>
+        Rental Duration: <input type="text" name="rental_duration" /> <br>
+        Rental Rate: <input type="text" name="rental_rate" /> <br>
+        Length: <input type="text" name="length" /> <br> 
+        Replacement Cost: <input type="text" name="replacement_cost" /> <br> 
+        Rating: <input type="text" name="rating" /> <br> 
+        Special Features: <input type="text" name="special_features" /> 
+        <input type="submit" name="Add New Film" />
+        
+    </form>
+</body>
+</html>
