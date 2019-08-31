@@ -11,7 +11,7 @@
     <c:choose>
         <c:when test="${! empty filmById}">
             <ul>
-                <li>${film.filmById}</li>
+                <li>${filmById}</li>
             </ul>
         </c:when>
         <c:otherwise>
