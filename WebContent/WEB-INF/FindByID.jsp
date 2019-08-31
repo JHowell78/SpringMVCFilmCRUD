@@ -14,6 +14,8 @@
                 <li>${filmById}</li>
             </ul>
         </c:when>
+        
+        
         <c:otherwise>
             <p>No film found</p>
         </c:otherwise>
