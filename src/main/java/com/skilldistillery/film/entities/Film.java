@@ -1,6 +1,7 @@
 package com.skilldistillery.film.entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Film {
 	private int id;
@@ -16,7 +17,7 @@ public class Film {
 	private String rating;
 	private String specialFeatures;
 	private String category;
-	private ArrayList<Actor> actor = new ArrayList<>();
+	private List<Actor> actor = new ArrayList<>();
 
 	public Film() {
 	}
@@ -164,11 +165,11 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 	}
 
-	public ArrayList<Actor> getActor() {
+	public List<Actor> getActor() {
 		return actor;
 	}
 
-	public void setActor(ArrayList<Actor> actor) {
+	public void setActor(List<Actor> actor) {
 		this.actor = actor;
 	}
 
@@ -189,7 +190,7 @@ public class Film {
 				+ "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
 				+ "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $"
 				+ this.replacement_cost + "\nRating: " + this.rating + "\t with Special Features: "
-				+ this.specialFeatures);
+				+ this.specialFeatures + "\nFilm category: " + this.category);
 	}
 
 	public void displayCategory() {
@@ -198,10 +199,18 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releasYear=" + releasYear
-				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rental_rate=" + rental_rate
-				+ ", length=" + length + ", replacement_cost=" + replacement_cost + ", rating=" + rating
-				+ ", specialFeatures=" + specialFeatures + ", actor=" + actor + "]";
+		return "\n You got it, every little detail:\n \nID # " + this.id + " " + this.title + " "
+				+ this.description + "\nReleased in " + this.releasYear + "\tLanguage ID " + this.languageId
+				+ "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
+				+ "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $"
+				+ this.replacement_cost + "\nRating: " + this.rating + "\t with Special Features: "
+				+ this.specialFeatures + "\nFilm category: " + this.category + "\nCast:\n" + this.actor;
+		
+		
+//		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releasYear=" + releasYear
+//				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rental_rate=" + rental_rate
+//				+ ", length=" + length + ", replacement_cost=" + replacement_cost + ", rating=" + rating
+//				+ ", specialFeatures=" + specialFeatures + ", actor=" + actor + "]";
 	}
 
 	@Override

@@ -55,6 +55,9 @@ public class DAOImpl implements DAOInterface {
 				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));
+				film.setCategory(findCategory(filmId).getCategory());
+				
+				film.setActor(findActorsByFilmId(filmId));  
 			}
 			filmResult.close();
 			stmt.close();
