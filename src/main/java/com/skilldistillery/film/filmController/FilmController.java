@@ -3,21 +3,24 @@ package com.skilldistillery.film.filmController;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.film.daointerface.DAOInterface;
 import com.skilldistillery.film.entities.Film;
 
+@Controller
 public class FilmController {
 	
 	@Autowired
 	DAOInterface dao;
 	
 	@RequestMapping(path = "getFilmsID.do", params = "id", method = RequestMethod.GET)
-	public ModelAndView getFilmByID(int id) {
+	public ModelAndView getFilmByID(@RequestParam int id) {
 		ModelAndView mv = new ModelAndView();
 		Film film = dao.findFilmById(id);
 		mv.addObject("filmById", film);

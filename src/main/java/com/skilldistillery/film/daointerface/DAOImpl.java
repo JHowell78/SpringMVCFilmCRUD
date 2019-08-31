@@ -9,9 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
+@Component
 public class DAOImpl implements DAOInterface {
 	
 	private static final String url = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
