@@ -57,6 +57,10 @@ public class DAOImpl implements DAOInterface {
 				film.setSpecialFeatures(filmResult.getString("special_features"));
 				film.setCategory(findCategory(filmId).getCategory());
 				film.setActor(findActorsByFilmId(filmId));
+<<<<<<< HEAD
+=======
+				film.setActor(findActorsByFilmId(filmId));  
+>>>>>>> 5e9ee6d9273c3b4df5fafc73404de5ad5381bbec
 			}
 			filmResult.close();
 			stmt.close();
@@ -184,12 +188,17 @@ public class DAOImpl implements DAOInterface {
 //	INSERT METHOD  --- MODIFY TO FIT PROJECT      CREATE ACTOR      /// MODIFY TO ADD FILM WITH ALL CATEGORIES    // USER STORY 4
 
 	public Film createFilm(Film film) {
+		
 		Connection conn = null;
+		
 		try {
 			conn = DriverManager.getConnection(url, userName, password);
+			
 			conn.setAutoCommit(false); // START TRANSACTION
+			
 			String sql = "INSERT INTO film (title, description, releasYear, languageId, rentalDuration, rental_rate, length, replacement_cost, rating, specialFeatures) "
-					+ " VALUES (?,?)";
+					+ " VALUES (?,?,?,?,?,?,?,?,?,)";
+			
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, film.getTitle());
@@ -204,34 +213,68 @@ public class DAOImpl implements DAOInterface {
 			stmt.setString(10, film.getSpecialFeatures());
 			
 			int updateCount = stmt.executeUpdate();
-			if (updateCount == 1) {
-				ResultSet keys = stmt.getGeneratedKeys();
-				if (keys.next()) {
-					int newFilmId = keys.getInt(1);
-					film.setId(newFilmId);
-					}
-			} else {
-				film = null;
-			}
-			conn.commit(); // COMMIT TRANSACTION
+			
+            if (updateCount == 1) {
+                ResultSet keys = stmt.getGeneratedKeys();
+                if (keys.next()) {
+                    int newFilmId = keys.getInt(1);
+                    film.setId(newFilmId);
+                    updateCount = stmt.executeUpdate(); 
+                }
+            } else {
+                film = null;
+                
+            } conn.commit(); // COMMIT TRANSACTION
+            
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-			if (conn != null) {
-				try {
-					conn.rollback();
-				} catch (SQLException sqle2) {
-					System.err.println("Error trying to rollback");
-				}
-			}
-			throw new RuntimeException("Error inserting film " + film);
-		}
-		return film;
+                sqle.printStackTrace();
+                if (conn != null) {
+                  try { conn.rollback(); }
+                  
+                  catch (SQLException sqle2) {
+                    System.err.println("Error trying to rollback");
+                  }
+                }
+                throw new RuntimeException("Error inserting actor " + film);
+              }
+              return film;
+            }  
+                
+                
+                
+                
+//            }
+//        } catch (SQLException sqle) {
+//            sqle.printStackTrace();
+//            if (conn != null) {
+//                try {
+//                    conn.rollback();
+//                } catch (SQLException sqle2) {
+//                    System.err.println("Error trying to rollback");
+//                }
+//            }
+//            throw new RuntimeException("Error inserting film " + film);
+//        } finally {
+//            try {
+//                conn.commit();
+//                conn.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        System.out.println(film);
+//        return film;
+//    }
+
+	
+	@Override
+	public Actor findActorById(int actorId) {
+		return null;
 	}
 
 	@Override
-	public Actor findActorById(int actorId) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean saveFilm(Film film) {
+		return false;
 	}
 }
 
