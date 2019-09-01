@@ -19,5 +19,7 @@ import com.skilldistillery.film.entities.Film;
 
 		public Film createFilm(Film film);
 		
+		public boolean saveFilm(Film film);
+		
 		
 	}

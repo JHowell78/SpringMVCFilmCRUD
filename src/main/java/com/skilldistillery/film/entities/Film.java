@@ -204,7 +204,10 @@ public class Film {
 				+ "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
 				+ "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $"
 				+ this.replacement_cost + "\nRating: " + this.rating + "\t with Special Features: "
-				+ this.specialFeatures + "\nFilm category: " + this.category + "\nCast:\n" + this.actor;
+				+ this.specialFeatures;
+				
+				
+//				+ "\nFilm category: " + this.category + "\nCast:\n" + this.actor;
 		
 		
 //		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releasYear=" + releasYear
