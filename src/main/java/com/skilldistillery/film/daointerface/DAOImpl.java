@@ -31,6 +31,10 @@ public class DAOImpl implements DAOInterface {
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
 			String sql = "SELECT * FROM film WHERE film.id = ?";
+<<<<<<< HEAD
+=======
+
+>>>>>>> deabcae0130cd9ce46808d9e4ab629a4868f8a70
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet filmResult = stmt.executeQuery();
@@ -41,18 +45,30 @@ public class DAOImpl implements DAOInterface {
 				film.setDescription(filmResult.getString("description"));
 				film.setReleasYear(filmResult.getInt("release_Year"));
 				film.setLanguageId(filmResult.getInt("language_id"));
+<<<<<<< HEAD
 
 				film.setLanguage(languageFromFilmID(film.getId()));
 
+=======
+				
+				film.setLanguage(languageFromFilmID(film.getId()));
+				
+>>>>>>> deabcae0130cd9ce46808d9e4ab629a4868f8a70
 				film.setRentalDuration(filmResult.getInt("rental_duration"));
 				film.setRental_rate(filmResult.getDouble("rental_rate"));
 				film.setLength(filmResult.getInt("length"));
 				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));
+<<<<<<< HEAD
 
 				film.setCategory(findCat(film.getId()));
 
+=======
+				
+				film.setCategory(findCat(film.getId())); 
+				
+>>>>>>> deabcae0130cd9ce46808d9e4ab629a4868f8a70
 				film.setActor(findActorsByFilmId(filmId));
 			}
 			filmResult.close();
@@ -64,6 +80,7 @@ public class DAOImpl implements DAOInterface {
 		return film;
 	}
 
+<<<<<<< HEAD
 	public String findCat(int filmId) throws SQLException {
 		String cat = "";
 		try {
@@ -102,6 +119,71 @@ public class DAOImpl implements DAOInterface {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+=======
+//	public Film findCategory(int filmId) { // FINDS A FILM CATEGORY - ACCESSES THE DATABASE AND RETURNS FILM CATEGORIES
+//											// /// USER STORY 6
+//		Film film = null;
+//
+//		try {
+//			Connection conn = DriverManager.getConnection(url, userName, password);
+//			String sql = "SELECT name FROM category JOIN film_category ON id = film_category.category_id JOIN film ON film_category.film_id = film.id WHERE film.id = ?";
+//			PreparedStatement stmt = conn.prepareStatement(sql);
+//			stmt.setInt(1, filmId);
+//			ResultSet filmResult = stmt.executeQuery();
+//			if (filmResult.next()) {
+//				film = new Film();
+//				film.setCategory(filmResult.getNString("name"));
+//			}
+//			filmResult.close();
+//			stmt.close();
+//			conn.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return film;
+//	}
+	
+	private String findCat(int filmId) throws SQLException { 
+		String cat = "";
+		try { 
+			Connection conn = DriverManager.getConnection(url, userName, password);
+			String sql = "SELECT name FROM category JOIN film_category ON id = film_category.category_id JOIN film ON film_category.film_id = film.id WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			ResultSet catFromId = stmt.executeQuery();
+			while (catFromId.next()) {
+				cat = catFromId.getString("category.name");
+			}
+			conn.close();
+			stmt.close();
+			catFromId.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+			return cat;
+	}
+
+	private String languageFromFilmID(int filmId) throws SQLException {
+		String language = "";
+		try {
+			Connection conn = DriverManager.getConnection(url, userName, password);
+			String sql = " SELECT film.language_id, language.name FROM film  JOIN language on film.language_id = language.id WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			ResultSet langFromId = stmt.executeQuery();
+			while (langFromId.next()) {
+				language = langFromId.getString("language.name");
+			}
+			conn.close();
+			stmt.close();
+			langFromId.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+>>>>>>> deabcae0130cd9ce46808d9e4ab629a4868f8a70
 		return language;
 	}
 
@@ -131,7 +213,11 @@ public class DAOImpl implements DAOInterface {
 				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));
+<<<<<<< HEAD
 				film.setCategory(findCat(film.getId()));
+=======
+				film.setCategory(findCat(film.getId())); 
+>>>>>>> deabcae0130cd9ce46808d9e4ab629a4868f8a70
 				film.setActor(findActorsByFilmId(film.getId()));
 				films.add(film);
 			}
@@ -144,6 +230,10 @@ public class DAOImpl implements DAOInterface {
 		return films;
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> deabcae0130cd9ce46808d9e4ab629a4868f8a70
 	@Override
 	public List<Actor> findActorsByFilmId(int filmId) { // // FINDS ACTORS BY FILM - ACCESSES THE DATABASE AND RETURNS
 														// ACTORS BY FILM //USER STORY 6

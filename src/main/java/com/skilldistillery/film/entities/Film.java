@@ -217,6 +217,9 @@ public class Film {
 	@Override
 	public String toString() {
 		return "\n You got it, every little detail:\n \nID # " + this.id + " " + this.title + " "
+				+ this.description + "\nReleased in " + this.releasYear + "\tLanguage ID " + this.languageId 
+				+ "\tLanguage " + this.language 
+				+ "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
 				+ this.description + "\nReleased in " + this.releasYear + "\tLanguage ID " + this.languageId
 				+ "\nLanguage: "+ language + "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
 				+ "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $"
