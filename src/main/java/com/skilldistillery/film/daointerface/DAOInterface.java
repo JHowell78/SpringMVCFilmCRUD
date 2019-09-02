@@ -21,5 +21,7 @@ import com.skilldistillery.film.entities.Film;
 		
 		public boolean saveFilm(Film film);
 		
+		public boolean deleteFilm(Film film); 
+		
 		
 	}

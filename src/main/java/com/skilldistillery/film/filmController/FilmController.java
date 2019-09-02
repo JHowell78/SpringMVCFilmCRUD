@@ -52,10 +52,11 @@ public class FilmController {
 		return mv; 
 	}
 	
-	@RequestMapping(path = "ModFilm.do", method = RequestMethod.PUT)
+	@RequestMapping(path = "ModFilm.do", method = RequestMethod.POST)
 	public String updateFilm(Film film, RedirectAttributes redir) {
 	    System.out.println(film);
 	    System.out.println(dao.saveFilm(film)); 
+	    film = dao.findFilmById(film.getId());
 	    redir.addFlashAttribute("filmAdd", film);
 	    return "redirect:filmEdit.do";
 	}
@@ -63,7 +64,7 @@ public class FilmController {
 	@RequestMapping(path = "filmEdit.do", method = RequestMethod.GET)
 	public ModelAndView filmEdit() { 
 	    ModelAndView mv = new ModelAndView();
-	    mv.setViewName("WEB-INF/ModifyFilm.jsp");
+	    mv.setViewName("WEB-INF/filmAddedjsp");
 	    return mv;
 	}
 }
