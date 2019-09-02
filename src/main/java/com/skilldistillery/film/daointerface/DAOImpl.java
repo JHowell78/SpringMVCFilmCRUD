@@ -105,9 +105,15 @@ public class DAOImpl implements DAOInterface {
 ​
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
+<<<<<<< HEAD
 ​
 			String sql = "SELECT * FROM film WHERE description LIKE ? OR title LIKE ?";
 ​
+=======
+
+			String sql = "SELECT * FROM film WHERE description LIKE ? OR title LIKE ?";
+
+>>>>>>> fe842358d257dfd1188fce7732c217b028c0b0e0
 			PreparedStatement stmt = conn.prepareStatement(sql);
 ​
 			stmt.setString(1, "%" + filmTitle + "%");
@@ -143,7 +149,25 @@ public class DAOImpl implements DAOInterface {
 		}
 		return films;
 	}
-
+	private String languageFromFilmID(int filmId) throws SQLException {
+		String language = "";
+		try {
+			Connection conn = DriverManager.getConnection(url, userName, password);
+			String sql = " SELECT film.language_id, language.name FROM film  JOIN language on film.language_id = language.id WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			ResultSet langFromId = stmt.executeQuery();
+			while (langFromId.next()) {
+				language = langFromId.getString("language.name");
+			}
+			conn.close();
+			stmt.close();
+			langFromId.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return language;
+	}
 	@Override
 	public List<Actor> findActorsByFilmId(int filmId) { // // FINDS ACTORS BY FILM - ACCESSES THE DATABASE AND RETURNS
 														// ACTORS BY FILM //USER STORY 6
