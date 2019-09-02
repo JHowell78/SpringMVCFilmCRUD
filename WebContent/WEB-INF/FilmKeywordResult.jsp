@@ -21,6 +21,7 @@
 			<c:when test="${! empty filmByKeyword}">
 
 				<c:forEach items="${filmByKeyword }" var="film">
+				<br>
 					<li>${film.title}</li>
 					<li>ID: ${film.id}</li>
 					<li>Synopsis: ${film.description}</li>

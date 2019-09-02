@@ -102,7 +102,7 @@ public class DAOImpl implements DAOInterface {
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
 
-			String sql = "SELECT id, title, description, release_year, rating FROM film WHERE description LIKE ? OR title LIKE ?";
+			String sql = "SELECT * FROM film WHERE description LIKE ? OR title LIKE ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -118,13 +118,14 @@ public class DAOImpl implements DAOInterface {
 				film.setDescription(filmResult.getString("description"));
 				film.setReleasYear(filmResult.getInt("release_Year"));
 				film.setRating(filmResult.getString("rating"));
-//				film.setLanguage(filmResult.getString("name"));
-//				film.setRentalDuration(filmResult.getInt("rental_duration"));
-//				film.setRental_rate(filmResult.getDouble("rental_rate"));
-//				film.setLength(filmResult.getInt("length"));
-//				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
-//				film.setRating(filmResult.getString("rating"));
-//				film.setSpecialFeatures(filmResult.getString("special_features"));
+				film.setLanguageId(filmResult.getInt("language_id"));
+				film.setLanguage(languageFromFilmID(film.getId()));
+				film.setRentalDuration(filmResult.getInt("rental_duration"));
+				film.setRental_rate(filmResult.getDouble("rental_rate"));
+				film.setLength(filmResult.getInt("length"));
+				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
+				film.setRating(filmResult.getString("rating"));
+				film.setSpecialFeatures(filmResult.getString("special_features"));
 				film.setCategory(findCategory(film.getId()).getCategory());
 				film.setActor(findActorsByFilmId(film.getId()));
 				films.add(film);
@@ -138,7 +139,25 @@ public class DAOImpl implements DAOInterface {
 		}
 		return films;
 	}
-
+	private String languageFromFilmID(int filmId) throws SQLException {
+		String language = "";
+		try {
+			Connection conn = DriverManager.getConnection(url, userName, password);
+			String sql = " SELECT film.language_id, language.name FROM film  JOIN language on film.language_id = language.id WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			ResultSet langFromId = stmt.executeQuery();
+			while (langFromId.next()) {
+				language = langFromId.getString("language.name");
+			}
+			conn.close();
+			stmt.close();
+			langFromId.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return language;
+	}
 	@Override
 	public List<Actor> findActorsByFilmId(int filmId) { // // FINDS ACTORS BY FILM - ACCESSES THE DATABASE AND RETURNS
 														// ACTORS BY FILM //USER STORY 6

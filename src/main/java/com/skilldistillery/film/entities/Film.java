@@ -218,10 +218,10 @@ public class Film {
 	public String toString() {
 		return "\n You got it, every little detail:\n \nID # " + this.id + " " + this.title + " "
 				+ this.description + "\nReleased in " + this.releasYear + "\tLanguage ID " + this.languageId
-				+ "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
+				+ "\nLanguage: "+ language + "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
 				+ "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $"
 				+ this.replacement_cost + "\nRating: " + this.rating + "\t with Special Features: "
-				+ this.specialFeatures;
+				+ this.specialFeatures + "\nCategory: " + this.category + "\nCast: " + this.actor ;
 				
 				
 //				+ "\nFilm category: " + this.category + "\nCast:\n" + this.actor;
