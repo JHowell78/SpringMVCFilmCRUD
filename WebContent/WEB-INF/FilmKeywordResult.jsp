@@ -50,6 +50,9 @@
 				<p>No film found</p>
 			</c:otherwise>
 		</c:choose>
+		<br>
+	<br>
+	
 		
 		<form action="UPDATEFILM.do" method="GET">
 		<br>
