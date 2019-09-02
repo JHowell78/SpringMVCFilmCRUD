@@ -50,5 +50,12 @@
 				<p>No film found</p>
 			</c:otherwise>
 		</c:choose>
+		
+		<form action="UPDATEFILM.do" method="GET">
+		<br>
+		<button type="submit">Update/Delete Film</button>
+		<input type="hidden" name="id" value="${filmById.id}" />
+	</form>
+	
 </body>
 </html>

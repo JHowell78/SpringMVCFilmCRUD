@@ -10,7 +10,6 @@ import com.skilldistillery.film.entities.Film;
 
         public Film findFilmById(int filmId);
 
-<<<<<<< HEAD
 		public Actor findActorById(int actorId);
 		
 		public List<Actor> findActorsByFilmId(int filmId);
@@ -29,23 +28,3 @@ import com.skilldistillery.film.entities.Film;
 		
 		
 	}
-=======
-        public Actor findActorById(int actorId);
-        
-        public List<Actor> findActorsByFilmId(int filmId);
-
-        public List<Film> findFilmByKeyword(String filmTitle);
-
-        public Film createFilm(Film film);
-        
-        public boolean saveFilm(Film film);
-        
-        public boolean deleteFilm(Film film); 
-        
-        public String findCat(int filmId) throws SQLException;
-        
-        public String languageFromFilmID(int filmId) throws SQLException;
-        
-        
-    }
->>>>>>> 27bb113b7dde2d03af1838afcc1c7faadbaf5e9f
