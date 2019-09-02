@@ -193,23 +193,34 @@ public class DAOImpl implements DAOInterface {
 			
 			conn.setAutoCommit(false); // START TRANSACTION
 			
-			String sql = "INSERT INTO film (title, description, releasYear, languageId, rentalDuration, rental_rate, length, replacement_cost, rating, specialFeatures) "
-					+ " VALUES (?,?,?,?,?,?,?,?,?,)";
+			String sql = "INSERT INTO film (title, "
+					+ "description, "
+					+ "release_year, "
+					+ "language_id, "
+					+ "rental_duration, "
+					+ "rental_rate, "
+					+ "length, "
+					+ "replacement_cost, "
+					+ "rating, "
+					+ "special_features) "
+					+ " VALUES (?,?,?,?,?,?,?,?,?,?)";
 			
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
+			
+			
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setInt(3, film.getReleasYear());
 			stmt.setInt(4, film.getLanguageId());
 			stmt.setInt(5, film.getRentalDuration());
-			stmt.setDouble(6, film.getRental_rate());
+			stmt.setDouble(6,  film.getRental_rate());
 			stmt.setInt(7, film.getLength());
 			stmt.setDouble(8, film.getReplacement_cost());
 			stmt.setString(9, film.getRating());
 			stmt.setString(10, film.getSpecialFeatures());
-			
+						
 			int updateCount = stmt.executeUpdate();
+			System.out.println(film);
 			
             if (updateCount == 1) {
                 ResultSet keys = stmt.getGeneratedKeys();
@@ -232,7 +243,7 @@ public class DAOImpl implements DAOInterface {
                     System.err.println("Error trying to rollback");
                   }
                 }
-                throw new RuntimeException("Error inserting actor " + film);
+                throw new RuntimeException("Error inserting film " + film);
               }
               return film;
             }  

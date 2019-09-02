@@ -10,23 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.skilldistillery.film.*;
 import com.skilldistillery.film.daointerface.DAOInterface;
-import com.skilldistillery.film.entities.*;
+import com.skilldistillery.film.entities.Film;
 
 @Controller
 public class FilmController {
 	
 	@Autowired
-	private DAOInterface dao;
-	
-//	public DAOInterface getDao() {
-//		return dao; 
-//	}
-//	
-//	public void setDao(DAOInterface dao) {
-//		this.dao = dao;
-//	}
+	public DAOInterface dao;
 	
 	@RequestMapping(path = "getFilmsID.do", params = "id", method = RequestMethod.GET)
 	public ModelAndView getFilmByID(@RequestParam int id) {
@@ -48,16 +39,17 @@ public class FilmController {
 	
 	@RequestMapping(path = "ADDFILM.do", method = RequestMethod.POST)
 	public String addFilm(Film film, RedirectAttributes redir) {
+		System.out.println("from the controller");
 		dao.createFilm(film);
 		redir.addFlashAttribute("filmAdd", film);
-		return "redirect:ADDFILM.do"; 
+		return "redirect:filmAdded.do"; 
 	}
 	
 	
 	@RequestMapping(path = "filmAdded.do", method = RequestMethod.GET)
-	public ModelAndView filmAdded() {
+	public ModelAndView addFilm() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/DisplayYourNewFilm.jsp");
+		mv.setViewName("WEB-INF/AddFilm.jsp");
 		return mv;
 	}
 }

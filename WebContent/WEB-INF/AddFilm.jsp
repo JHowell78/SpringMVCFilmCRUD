@@ -6,9 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Add a Film</title>
+<title>FilmAdded</title>
 </head>
 <body>
+	<a href="index.html">Home</a>
     <h2>Your Film Added</h2>
     <c:choose>
         <c:when test="${! empty filmAdd}">
