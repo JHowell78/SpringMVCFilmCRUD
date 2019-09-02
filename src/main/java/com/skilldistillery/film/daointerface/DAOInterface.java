@@ -1,5 +1,6 @@
 package com.skilldistillery.film.daointerface;
 
+import java.sql.SQLException;
 import java.util.List;
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
@@ -11,8 +12,6 @@ import com.skilldistillery.film.entities.Film;
 
 		public Actor findActorById(int actorId);
 		
-		public Film findCategory(int filmID);
-
 		public List<Actor> findActorsByFilmId(int filmId);
 
 		public List<Film> findFilmByKeyword(String filmTitle);
@@ -22,6 +21,10 @@ import com.skilldistillery.film.entities.Film;
 		public boolean saveFilm(Film film);
 		
 		public boolean deleteFilm(Film film); 
+		
+		public String findCat(int filmId) throws SQLException;
+		
+		public String languageFromFilmID(int filmId) throws SQLException;
 		
 		
 	}

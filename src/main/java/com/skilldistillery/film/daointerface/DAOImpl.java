@@ -71,31 +71,7 @@ public class DAOImpl implements DAOInterface {
 		return film;
 	}
 
-//	public Film findCategory(int filmId) { // FINDS A FILM CATEGORY - ACCESSES THE DATABASE AND RETURNS FILM CATEGORIES
-//											// /// USER STORY 6
-//		Film film = null;
-//
-//		try {
-//			Connection conn = DriverManager.getConnection(url, userName, password);
-//			String sql = "SELECT name FROM category JOIN film_category ON id = film_category.category_id JOIN film ON film_category.film_id = film.id WHERE film.id = ?";
-//			PreparedStatement stmt = conn.prepareStatement(sql);
-//			stmt.setInt(1, filmId);
-//			ResultSet filmResult = stmt.executeQuery();
-//			if (filmResult.next()) {
-//				film = new Film();
-//				film.setCategory(filmResult.getNString("name"));
-//			}
-//			filmResult.close();
-//			stmt.close();
-//			conn.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return film;
-//	}
-	
-	private String findCat(int filmId) throws SQLException { 
+	public String findCat(int filmId) throws SQLException { 
 		String cat = "";
 		try { 
 			Connection conn = DriverManager.getConnection(url, userName, password);
@@ -117,7 +93,7 @@ public class DAOImpl implements DAOInterface {
 			return cat;
 	}
 
-	private String languageFromFilmID(int filmId) throws SQLException {
+	public String languageFromFilmID(int filmId) throws SQLException {
 		String language = "";
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
@@ -362,5 +338,6 @@ public class DAOImpl implements DAOInterface {
 		}
 		return true;
 	}
+
 
 }
