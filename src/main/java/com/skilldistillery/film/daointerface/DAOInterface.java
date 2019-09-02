@@ -16,7 +16,6 @@ import com.skilldistillery.film.entities.Film;
 
         public List<Film> findFilmByKeyword(String filmTitle);
 
-<<<<<<< HEAD
         public Film createFilm(Film film);
         
         public boolean saveFilm(Film film);
@@ -29,15 +28,3 @@ import com.skilldistillery.film.entities.Film;
         
         
     }
-=======
-		public List<Film> findFilmByKeyword(String filmTitle);
-
-		public Film createFilm(Film film);
-		
-		public boolean saveFilm(Film film);
-		
-		public boolean deleteFilm(Film film); 
-		
-		
-	}
->>>>>>> deabcae0130cd9ce46808d9e4ab629a4868f8a70
