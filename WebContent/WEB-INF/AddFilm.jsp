@@ -9,7 +9,7 @@
 <title>FilmAdded</title>
 </head>
 <body>
-	<a href="index.html">Home</a>
+	<a href="index.html">Return to Main Menu</a>
     <h2>Your Film Added</h2>
     <c:choose>
         <c:when test="${! empty filmAdd}">

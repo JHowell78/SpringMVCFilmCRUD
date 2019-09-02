@@ -9,7 +9,7 @@
 <title>Film By ID</title>
 </head>
 <body>
-
+<a href="index.html">Return to Main Menu</a> <br> <br> 
 
 
 	<div class="container">
@@ -37,9 +37,12 @@
 					<li>Special Features : ${film.specialFeatures}</li>
 						<li>Cast: </li>
 					<c:forEach var="cast" items="${film.actor}">
+					<ul>
 					<li>${cast}</li>
+					</ul>
 					</c:forEach>
 				</c:forEach>
+				<br> <br> 
 			</c:when>
 
 			<c:otherwise>

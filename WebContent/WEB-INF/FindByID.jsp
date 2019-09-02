@@ -9,12 +9,14 @@
 <title>Film By ID</title>
 </head>
 <body>
+<a href="index.html">Return to Main Menu</a> <br> <br> 
     <h2>Find film by ID results: </h2>
     <c:choose>
         <c:when test="${! empty filmById}">
             <ul>
                 <li>${filmById}</li>
             </ul>
+            <br> 
         </c:when>
         
         
@@ -25,5 +27,3 @@
 </body>
 </html>
 
-</body>
-</html>

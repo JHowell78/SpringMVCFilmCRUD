@@ -39,7 +39,6 @@ public class FilmController {
 	
 	@RequestMapping(path = "ADDFILM.do", method = RequestMethod.POST)
 	public String addFilm(Film film, RedirectAttributes redir) {
-		System.out.println("from the controller");
 		dao.createFilm(film);
 		redir.addFlashAttribute("filmAdd", film);
 		return "redirect:filmAdded.do"; 
@@ -47,11 +46,43 @@ public class FilmController {
 	
 	
 	@RequestMapping(path = "filmAdded.do", method = RequestMethod.GET)
-	public ModelAndView addFilm() {
+	public ModelAndView addFilm() { 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/AddFilm.jsp");
-		return mv;
+		return mv; 
 	}
+	
+	@RequestMapping(path = "ModFilm.do", method = RequestMethod.PUT)
+	public String updateFilm(Film film, RedirectAttributes redir) {
+	    System.out.println(film);
+	    System.out.println(dao.saveFilm(film)); 
+	    redir.addFlashAttribute("filmAdd", film);
+	    return "redirect:filmEditAdded.do";
+	}
+	
+	@RequestMapping(path = "filmEditAdded.do", method = RequestMethod.GET)
+	public ModelAndView filmEditAdded() { 
+	    ModelAndView mv = new ModelAndView();
+	    mv.setViewName("WEB-INF/AddFilm.jsp");
+	    return mv;
+	}
+}
+
+
+@RequestMapping(path = "filmEditAdded.do", method = RequestMethod.GET)
+public ModelAndView filmEditAdded() {
+    ModelAndView mv = new ModelAndView();
+    mv.setViewName("WEB-INF/FilmAdded.jsp");
+    return mv;
+}
+
+@RequestMapping(path = "UPDATEFILM.do", method = RequestMethod.GET)
+public ModelAndView filmUpdated(Film film) {
+    ModelAndView mv = new ModelAndView();
+    film = dao.findFilmById(film.getId());
+    mv.addObject("film", film);
+    mv.setViewName("WEB-INF/CRUD.jsp");
+    return mv;
 }
 
 //	GET      POST    PUT    DELETE       ---- PUT UPDATES
