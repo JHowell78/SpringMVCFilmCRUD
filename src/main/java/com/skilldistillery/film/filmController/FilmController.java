@@ -76,6 +76,7 @@ public class FilmController {
 		mv.setViewName("WEB-INF/AddFilm.jsp");
 		return mv;
 	}
+<<<<<<< HEAD
 
 	@RequestMapping(path = "ModFilm.do", method = RequestMethod.POST)
 	public String updateFilm(Film film, RedirectAttributes redir) {
@@ -90,9 +91,47 @@ public class FilmController {
 	public ModelAndView filmEdit() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/filmAddedjsp");
+=======
+	
+	@RequestMapping(path = "editedFilm.do", method = RequestMethod.POST)
+	public String updateFilm(Film film, RedirectAttributes redir) {
+		dao.saveFilm(film);
+		redir.addFlashAttribute("filmAdd", film);
+		return "redirect:filmAdded.do";
+	}
+	
+//	@RequestMapping(path = "filmEditAdded.do", method = RequestMethod.GET)
+//	public ModelAndView filmEditAdded() {
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("WEB-INF/FilmAdded.jsp");
+//		return mv;
+//	}
+	
+	@RequestMapping(path = "UPDATEFILM.do", method = RequestMethod.GET)
+	public ModelAndView filmUpdated(Film film) {
+		ModelAndView mv = new ModelAndView();
+		film = dao.findFilmById(film.getId());
+//		mv.addObject("allRatings", allRatings);
+		mv.addObject("film", film);
+		mv.setViewName("WEB-INF/ModifyFilm.jsp");
+>>>>>>> c13012e5fc69df1df18fedeb18e15eed21c1c8af
 		return mv;
 	}
 }
+	
+	
+	
+	
+	
+	
+	
+//	@RequestMapping(path = "filmEdit.do", method = RequestMethod.GET)
+//	public ModelAndView filmEdit() { 
+//	    ModelAndView mv = new ModelAndView();
+//	    mv.setViewName("WEB-INF/filmAddedjsp");
+//	    return mv;
+//	}
+//}
 //
 //
 //@RequestMapping(path = "filmEditAdded.do", method = RequestMethod.GET)

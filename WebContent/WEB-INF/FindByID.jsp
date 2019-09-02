@@ -32,11 +32,13 @@
 	<a href="addFilm.html">Add New Film</a>
 	<br />
 	</h3>
-	<h4>
-		<br> <a href="modFilm.html">Modify or Update a Film you added</a> <br>
+	
+	<form action="UPDATEFILM.do" method="GET">
 		<br>
-		<a href="deleteFilm.html">Delect a Film you added</a> <br>
-	</h4>
+		<button type="submit">Update/Delete Film</button>
+		<input type="hidden" name="id" value="${filmById.id}" />
+	</form>
+	
 </body>
 </html>
 
