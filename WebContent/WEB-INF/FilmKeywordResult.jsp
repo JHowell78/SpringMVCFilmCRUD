@@ -24,10 +24,21 @@
 					<li>${film.title}</li>
 					<li>ID: ${film.id}</li>
 					<li>Synopsis: ${film.description}</li>
-					<li>Cast:</li>
-					
-
-
+					<li>Rating: ${film.rating}</li>
+					<li>Year Released: ${film.releasYear}</li>
+					<li>Category: ${film.category}</li>
+					<li>Language Id: ${film.languageId}</li>
+					<li>Language: ${film.language}</li>
+					<li>Rental Duration: ${film.rentalDuration}</li>
+					<li>Rental Rate: ${film.rental_rate}</li>
+					<li>Film Length: ${film.length}</li>
+					<li>Rental Rate: ${film.rental_rate}</li>
+					<li>Replacement Cost: ${film.replacement_cost}</li>
+					<li>Special Features : ${film.specialFeatures}</li>
+						<li>Cast: </li>
+					<c:forEach var="cast" items="${film.actor}">
+					<li>${cast}</li>
+					</c:forEach>
 				</c:forEach>
 			</c:when>
 
