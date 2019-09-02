@@ -50,18 +50,9 @@
 				<p>No film found</p>
 			</c:otherwise>
 		</c:choose>
-<<<<<<< HEAD
 		<br>
 	<br>
-	<a href="addFilm.html">Add New Film</a>
-	<br />
-	</h3>
-	<h4>
-		<br> <a href="modFilm.html">Modify or Update a Film you added</a> <br>
-		<br>
-		<a href="deleteFilm.html">Delect a Film you added</a> <br>
-	</h4>
-=======
+	
 		
 		<form action="UPDATEFILM.do" method="GET">
 		<br>
@@ -69,6 +60,5 @@
 		<input type="hidden" name="id" value="${filmById.id}" />
 	</form>
 	
->>>>>>> c13012e5fc69df1df18fedeb18e15eed21c1c8af
 </body>
 </html>

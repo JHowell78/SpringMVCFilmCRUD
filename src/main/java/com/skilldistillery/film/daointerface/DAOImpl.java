@@ -261,31 +261,7 @@ public class DAOImpl implements DAOInterface {
         }
         return true;
     }
-//  DELETE METHOD --- MODIFY TO FIT PROJECT          DO FOR 'FILMS'  SO THEY CAN DELETE -  BUT REMEBER THEY CAN ONLY DELETE FILES THEY ADDED    //// STORY  1/3 & 5
-//    public boolean deleteFilm(Film film) {
-//        Connection conn = null;
-//        try {
-//            conn = DriverManager.getConnection(url, userName, password);
-//            conn.setAutoCommit(false); // START TRANSACTION
-//            String sql = "DELETE FROM film WHERE id = ?";
-//            PreparedStatement stmt = conn.prepareStatement(sql);
-//            stmt.setInt(1, film.getId());
-//            int updateCount = stmt.executeUpdate();
-//            updateCount = stmt.executeUpdate();
-//            conn.commit(); // COMMIT TRANSACTION
-//        } catch (SQLException sqle) {
-//            sqle.printStackTrace();
-//            if (conn != null) {
-//                try {
-//                    conn.rollback();
-//                } catch (SQLException sqle2) {
-//                    System.err.println("Error trying to rollback");
-//                }
-//            }
-//            return false;
-//        }
-//        return true;
-//    }
+
     public boolean deleteFilm(Film film) {
 		Connection conn = null;
 		try {

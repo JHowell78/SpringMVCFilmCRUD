@@ -29,9 +29,7 @@
 
 	<br>
 	<br>
-	<a href="addFilm.html">Add New Film</a>
-	<br />
-	</h3>
+
 	
 	<form action="UPDATEFILM.do" method="GET">
 		<br>
