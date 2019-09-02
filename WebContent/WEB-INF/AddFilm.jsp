@@ -24,9 +24,16 @@
 
 	<form action="UPDATEFILM.do" method="GET">
 		<br>
-		<button type="submit">Update/Delete Film</button>
-		<input type="hidden" name="id" value="${filmById.id}" />
+		<button type="submit">Update Film</button>
+		<input type="hidden" name="id" value="${filmAdd.id}" />
 	</form>
-	
+
+	<form:form action="deleteFilm.do" method="POST" modelAttribute="film">
+		<input type="hidden" name="id" value="${filmAdd.id}" />
+		<input type="submit" name="Delete this Film"
+			value="Delete from Inventory" />
+	</form:form>
+
+
 </body>
 </html>
