@@ -8,19 +8,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
 @Component
 public class DAOImpl implements DAOInterface {
-
 	private static final String url = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
 	private final String userName = "student";
 	private final String password = "student";
-
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -32,12 +28,9 @@ public class DAOImpl implements DAOInterface {
 	@Override
 	public Film findFilmById(int filmId) { // FIND FILM BY ID - ACCESSES THE DATABASE AND RETURNS FILM //// USER STORY 1
 		Film film = null;
-
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
-			String sql = "SELECT film.id, title, description, release_year, language_id, rental_duration, rental_rate, "
-					+ "length, replacement_cost, special_features, rating, name FROM film JOIN language "
-					+ "ON language.id = film.language_id WHERE film.id = ?";
+			String sql = "SELECT * FROM film WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet filmResult = stmt.executeQuery();
@@ -48,88 +41,19 @@ public class DAOImpl implements DAOInterface {
 				film.setDescription(filmResult.getString("description"));
 				film.setReleasYear(filmResult.getInt("release_Year"));
 				film.setLanguageId(filmResult.getInt("language_id"));
-				film.setLanguage(filmResult.getString("name"));
-				film.setRentalDuration(filmResult.getInt("rental_duration"));
-				film.setRental_rate(filmResult.getDouble("rental_rate"));
-				film.setLength(filmResult.getInt("length"));
-				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
-				film.setRating(filmResult.getString("rating"));
-				film.setSpecialFeatures(filmResult.getString("special_features"));
-				film.setCategory(findCategory(filmId).getCategory());
-				film.setActor(findActorsByFilmId(filmId));
-				film.setActor(findActorsByFilmId(filmId));
-			}
-			filmResult.close();
-			stmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
-		return film;
-	}
-
-	public Film findCategory(int filmId) { // FINDS A FILM CATEGORY - ACCESSES THE DATABASE AND RETURNS FILM CATEGORIES
-											// /// USER STORY 6
-		Film film = null;
-
-		try {
-			Connection conn = DriverManager.getConnection(url, userName, password);
-			String sql = "SELECT name FROM category JOIN film_category ON category_id = film_category.category_id "
-					+ "JOIN film ON film_category.film_id = film.id WHERE film.id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, filmId);
-			ResultSet filmResult = stmt.executeQuery();
-			if (filmResult.next()) {
-				film = new Film();
-				film.setCategory(filmResult.getNString("name"));
-			}
-			filmResult.close();
-			stmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return film;
-	}
-
-	@Override
-	public List<Film> findFilmByKeyword(String filmTitle) { // // FINDS A FILM BY KEYWORD - ACCESSES THE DATABASE AND
-															// RETURNS FILM USER STORY 5, THEN ROUTE TO UPDATE OR DELETE
-		List<Film> films = new ArrayList<>();
-
-		try {
-			Connection conn = DriverManager.getConnection(url, userName, password);
-
-			String sql = "SELECT * FROM film WHERE description LIKE ? OR title LIKE ?";
-
-			PreparedStatement stmt = conn.prepareStatement(sql);
-
-			stmt.setString(1, "%" + filmTitle + "%");
-			stmt.setString(2, "%" + filmTitle + "%");
-
-			ResultSet filmResult = stmt.executeQuery();
-
-			while (filmResult.next()) {
-				Film film = new Film();
-				film.setId(filmResult.getInt("id"));
-				film.setTitle(filmResult.getString("title"));
-				film.setDescription(filmResult.getString("description"));
-				film.setReleasYear(filmResult.getInt("release_Year"));
-				film.setRating(filmResult.getString("rating"));
-				film.setLanguageId(filmResult.getInt("language_id"));
 				film.setLanguage(languageFromFilmID(film.getId()));
+
 				film.setRentalDuration(filmResult.getInt("rental_duration"));
 				film.setRental_rate(filmResult.getDouble("rental_rate"));
 				film.setLength(filmResult.getInt("length"));
 				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));
-				film.setCategory(findCategory(film.getId()).getCategory());
-				film.setActor(findActorsByFilmId(film.getId()));
-				films.add(film);
 
+				film.setCategory(findCat(film.getId()));
+
+				film.setActor(findActorsByFilmId(filmId));
 			}
 			filmResult.close();
 			stmt.close();
@@ -137,9 +61,31 @@ public class DAOImpl implements DAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return films;
+		return film;
 	}
-	private String languageFromFilmID(int filmId) throws SQLException {
+
+	public String findCat(int filmId) throws SQLException {
+		String cat = "";
+		try {
+			Connection conn = DriverManager.getConnection(url, userName, password);
+			String sql = "SELECT name FROM category JOIN film_category ON id = film_category.category_id JOIN film ON film_category.film_id = film.id WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			ResultSet catFromId = stmt.executeQuery();
+			while (catFromId.next()) {
+				cat = catFromId.getString("category.name");
+			}
+			conn.close();
+			stmt.close();
+			catFromId.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return cat;
+	}
+
+	public String languageFromFilmID(int filmId) throws SQLException {
 		String language = "";
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
@@ -158,21 +104,58 @@ public class DAOImpl implements DAOInterface {
 		}
 		return language;
 	}
+
+	@Override
+	public List<Film> findFilmByKeyword(String filmTitle) { // // FINDS A FILM BY KEYWORD - ACCESSES THE DATABASE AND
+															// RETURNS FILM USER STORY 5, THEN ROUTE TO UPDATE OR DELETE
+		List<Film> films = new ArrayList<>();
+		try {
+			Connection conn = DriverManager.getConnection(url, userName, password);
+			String sql = "SELECT * FROM film WHERE description LIKE ? OR title LIKE ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%" + filmTitle + "%");
+			stmt.setString(2, "%" + filmTitle + "%");
+			ResultSet filmResult = stmt.executeQuery();
+			while (filmResult.next()) {
+				Film film = new Film();
+				film.setId(filmResult.getInt("id"));
+				film.setTitle(filmResult.getString("title"));
+				film.setDescription(filmResult.getString("description"));
+				film.setReleasYear(filmResult.getInt("release_Year"));
+				film.setRating(filmResult.getString("rating"));
+				film.setLanguageId(filmResult.getInt("language_id"));
+				film.setLanguage(languageFromFilmID(film.getId()));
+				film.setRentalDuration(filmResult.getInt("rental_duration"));
+				film.setRental_rate(filmResult.getDouble("rental_rate"));
+				film.setLength(filmResult.getInt("length"));
+				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
+				film.setRating(filmResult.getString("rating"));
+				film.setSpecialFeatures(filmResult.getString("special_features"));
+				film.setCategory(findCat(film.getId()));
+				film.setActor(findActorsByFilmId(film.getId()));
+				films.add(film);
+			}
+			filmResult.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return films;
+	}
+
 	@Override
 	public List<Actor> findActorsByFilmId(int filmId) { // // FINDS ACTORS BY FILM - ACCESSES THE DATABASE AND RETURNS
 														// ACTORS BY FILM //USER STORY 6
 		List<Actor> actors = new ArrayList<>();
-
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
 			String sql = "SELECT actor.id, actor.first_name, actor.last_name " + "FROM actor "
 					+ "JOIN film_actor ON film_actor.actor_id = actor.id "
 					+ "JOIN film ON film_actor.film_id = film.id " + "WHERE film.id = ?";
-
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet actorResult = stmt.executeQuery();
-
 			while (actorResult.next()) {
 				Actor actor = new Actor();
 				actor.setId(actorResult.getInt(1));
@@ -180,7 +163,6 @@ public class DAOImpl implements DAOInterface {
 				actor.setLastName(actorResult.getNString(3));
 				actors.add(actor);
 			}
-
 			actorResult.close();
 			stmt.close();
 			conn.close();
@@ -190,34 +172,15 @@ public class DAOImpl implements DAOInterface {
 		return actors;
 	}
 
-//	@Override
-//	public Actor findActorById(int actorId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	@Override
-//	public Actor findActorById(int actorId) {   // NOT USED YET - CAN RETRIEVE FROM LAST WEEK'S GIT HUB
-//		return null;
-//	}
-
-//	INSERT METHOD  --- MODIFY TO FIT PROJECT      CREATE ACTOR      /// MODIFY TO ADD FILM WITH ALL CATEGORIES    // USER STORY 4
-
 	public Film createFilm(Film film) {
-
 		Connection conn = null;
-
 		try {
 			conn = DriverManager.getConnection(url, userName, password);
-
 			conn.setAutoCommit(false); // START TRANSACTION
-
 			String sql = "INSERT INTO film (title, " + "description, " + "release_year, " + "language_id, "
 					+ "rental_duration, " + "rental_rate, " + "length, " + "replacement_cost, " + "rating, "
 					+ "special_features) " + " VALUES (?,?,?,?,?,?,?,?,?,?)";
-
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setInt(3, film.getReleasYear());
@@ -228,10 +191,8 @@ public class DAOImpl implements DAOInterface {
 			stmt.setDouble(8, film.getReplacement_cost());
 			stmt.setString(9, film.getRating());
 			stmt.setString(10, film.getSpecialFeatures());
-
 			int updateCount = stmt.executeUpdate();
 			System.out.println(film);
-
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
 				if (keys.next()) {
@@ -241,18 +202,14 @@ public class DAOImpl implements DAOInterface {
 				}
 			} else {
 				film = null;
-
 			}
 			conn.commit(); // COMMIT TRANSACTION
-
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {
 				try {
 					conn.rollback();
-				}
-
-				catch (SQLException sqle2) {
+				} catch (SQLException sqle2) {
 					System.err.println("Error trying to rollback");
 				}
 			}
@@ -266,21 +223,15 @@ public class DAOImpl implements DAOInterface {
 		return null;
 	}
 
-//  UPDATE METHOD OR WHERE THE EDITING CAN HAPPEN  --- MODIFY TO FIT PROJECT - THIS ONE IS FOR ACTOR    NEED ONE FOR FILMS   /// USER STORY 4 & 5 
 	@Override
 	public boolean saveFilm(Film film) {
 		Connection conn = null;
-
 		try {
 			conn = DriverManager.getConnection(url, userName, password);
-
 			conn.setAutoCommit(false); // START TRANSACTION
-
 			String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id=?, rental_duration=?, "
 					+ "rental_rate=?, length=?, replacement_cost=?, rating=?, " + " special_features=?, WHERE id=?";
-
 			PreparedStatement stmt = conn.prepareStatement(sql);
-
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setInt(3, film.getReleasYear());
@@ -292,10 +243,8 @@ public class DAOImpl implements DAOInterface {
 			stmt.setString(9, film.getRating());
 			stmt.setString(10, film.getSpecialFeatures());
 			stmt.setInt(11, film.getId());
-
 			int updateCount = stmt.executeUpdate();
 			System.out.println("end of update code");
-
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
 			updateCount = stmt.executeUpdate();
@@ -322,22 +271,15 @@ public class DAOImpl implements DAOInterface {
 	}
 
 //  DELETE METHOD --- MODIFY TO FIT PROJECT          DO FOR 'FILMS'  SO THEY CAN DELETE -  BUT REMEBER THEY CAN ONLY DELETE FILES THEY ADDED    //// STORY  1/3 & 5
-
 	public boolean deleteFilm(Film film) {
-
 		Connection conn = null;
 		try {
-
 			conn = DriverManager.getConnection(url, userName, password);
 			conn.setAutoCommit(false); // START TRANSACTION
-
 			String sql = "DELETE FROM film WHERE id = ?";
-
 			PreparedStatement stmt = conn.prepareStatement(sql);
-
 			stmt.setInt(1, film.getId());
 			int updateCount = stmt.executeUpdate();
-
 			updateCount = stmt.executeUpdate();
 			conn.commit(); // COMMIT TRANSACTION
 		} catch (SQLException sqle) {
@@ -353,5 +295,4 @@ public class DAOImpl implements DAOInterface {
 		}
 		return true;
 	}
-
 }
