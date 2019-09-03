@@ -8,6 +8,7 @@
 <title>FilmAdded</title>
 </head>
 <body>
+<<<<<<< HEAD
     <a href="index.html">Return to Main Menu</a>
     <h2>Your Film Added</h2>
     <c:choose>
@@ -30,5 +31,31 @@
         <input type="submit" name="Delete this Film"
             value="Delete from Inventory" />
     </form:form>
+=======
+	<a href="index.html">Return to Main Menu</a>
+	<h2>Your Film Added</h2>
+	<c:choose>
+		<c:when test="${! empty filmAdd}">
+			<ul>
+				<li>${filmAdd}</li>
+			</ul>
+		</c:when>
+		<c:otherwise>
+			<p>Film Not Added</p>
+		</c:otherwise>
+	</c:choose>
+	<form action="UPDATEFILM.do" method="GET">
+		<br>
+		<button type="submit">Update Film</button>
+		<input type="hidden" name="id" value="${filmAdd.id}" />
+	</form>
+	<form:form action="deleteFilm.do" method="POST" modelAttribute="film">
+		<input type="hidden" name="id" value="${filmAdd.id}" />
+		<input type="submit" name="Delete this Film"
+			value="Delete from Inventory" />
+	</form:form>
+
+
+>>>>>>> 40da5fb3028a5823dcee6c033276599fe19a0082
 </body>
 </html>
