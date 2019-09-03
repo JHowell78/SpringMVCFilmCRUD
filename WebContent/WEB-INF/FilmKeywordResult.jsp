@@ -9,7 +9,9 @@
 <title>Film By ID</title>
 </head>
 <body>
-<a href="index.html">Return to Main Menu</a> <br> <br> 
+	<a href="index.html">Return to Main Menu</a>
+	<br>
+	<br>
 
 
 	<div class="container">
@@ -21,7 +23,7 @@
 			<c:when test="${! empty filmByKeyword}">
 
 				<c:forEach items="${filmByKeyword }" var="film">
-				<br>
+					<br>
 					<li>${film.title}</li>
 					<li>ID: ${film.id}</li>
 					<li>Synopsis: ${film.description}</li>
@@ -36,29 +38,28 @@
 					<li>Rental Rate: ${film.rental_rate}</li>
 					<li>Replacement Cost: ${film.replacement_cost}</li>
 					<li>Special Features : ${film.specialFeatures}</li>
-						<li>Cast: </li>
+					<li>Cast:</li>
 					<c:forEach var="cast" items="${film.actor}">
-					<ul>
-					<li>${cast}</li>
-					</ul>
+						<ul>
+							<li>${cast}</li>
+						</ul>
 					</c:forEach>
+					<br>
+
+
+					<form action="UPDATEFILM.do" method="GET">
+						<br>
+						<button type="submit">Update/Delete Film</button>
+						<input type="hidden" name="id" value="${film.id}" />
+					</form>
 				</c:forEach>
-				<br> <br> 
+				<br>
+				<br>
 			</c:when>
 
 			<c:otherwise>
 				<p>No film found</p>
 			</c:otherwise>
 		</c:choose>
-		<br>
-	<br>
-	
-		
-		<form action="UPDATEFILM.do" method="GET">
-		<br>
-		<button type="submit">Update/Delete Film</button>
-		<input type="hidden" name="id" value="${filmById.id}" />
-	</form>
-	
 </body>
 </html>
