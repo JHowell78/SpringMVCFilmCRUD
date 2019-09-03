@@ -21,13 +21,11 @@
 			<p>Film Not Added</p>
 		</c:otherwise>
 	</c:choose>
-
 	<form action="UPDATEFILM.do" method="GET">
 		<br>
 		<button type="submit">Update Film</button>
 		<input type="hidden" name="id" value="${filmAdd.id}" />
 	</form>
-
 	<form:form action="deleteFilm.do" method="POST" modelAttribute="film">
 		<input type="hidden" name="id" value="${filmAdd.id}" />
 		<input type="submit" name="Delete this Film"
