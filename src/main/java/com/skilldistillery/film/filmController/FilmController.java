@@ -62,7 +62,8 @@ public class FilmController {
 	@RequestMapping(path = "filmAdded.do", method = RequestMethod.GET)
 	public ModelAndView addFilm() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/ModifyFilm.jsp");
+//		mv.setViewName("WEB-INF/ModifyFilm.jsp");
+		mv.setViewName("WEB-INF/AddFilm.jsp");
 		return mv;
 	}
 
@@ -76,7 +77,9 @@ public class FilmController {
 	@RequestMapping(path = "filmEditAdded.do", method = RequestMethod.GET)
 	public ModelAndView filmEditAdded() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/ModifyFilm.jsp");
+//		mv.setViewName("WEB-INF/ModifyFilm.jsp");
+		mv.setViewName("WEB-INF/AddFilm.jsp");
+
 		return mv;
 	}
 	
@@ -87,6 +90,7 @@ public class FilmController {
 //		mv.addObject("allRatings", allRatings);
 		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/ModifyFilm.jsp");
+//		mv.setViewName("WEB-INF/AddFilm.jsp");
 		return mv;
 	}
 }
