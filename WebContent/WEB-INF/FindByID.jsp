@@ -28,12 +28,8 @@
 	</c:choose>
 
 	<br>
-<<<<<<< HEAD
-	</h3>
-=======
 	<br>
 
->>>>>>> c24efea2383501f688af501aae581f1e1adf6334
 	
 	<form action="UPDATEFILM.do" method="GET">
 		<br>
