@@ -22,9 +22,8 @@ public class Film {
 	public Film() {
 	}
 
-	public Film(int id, String title, String description, int releasYear, int languageId, 
-			int rentalDuration, double rental_rate, int length, double replacement_cost, String rating,
-			String specialFeatures) {
+	public Film(int id, String title, String description, int releasYear, int languageId, int rentalDuration,
+			double rental_rate, int length, double replacement_cost, String rating, String specialFeatures) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -38,8 +37,8 @@ public class Film {
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
 	}
-	
-	public Film(int id, String title, String category, String description, int releasYear, int languageId, 
+
+	public Film(int id, String title, String category, String description, int releasYear, int languageId,
 			String language, int rentalDuration, double rental_rate, int length, double replacement_cost, String rating,
 			String specialFeatures) {
 		super();
@@ -216,24 +215,13 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "\n You got it, every little detail:\n \nID # " + this.id + " " + this.title + " "
-				+ this.description + "\nReleased in " + this.releasYear + "\tLanguage ID " + this.languageId 
-				+ "\tLanguage " + this.language 
-				+ "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
+		return "\n You got it, every little detail:\n \nID # " + this.id + " Title: " + this.title + " Synopsis: "
 				+ this.description + "\nReleased in " + this.releasYear + "\tLanguage ID " + this.languageId
-				+ "\nLanguage: "+ language + "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
-				+ "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $"
-				+ this.replacement_cost + "\nRating: " + this.rating + "\t with Special Features: "
-				+ this.specialFeatures + "\nCategory: " + this.category + "\nCast: " + this.actor ;
-				
-				
-//				+ "\nFilm category: " + this.category + "\nCast:\n" + this.actor;
-		
-		
-//		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releasYear=" + releasYear
-//				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rental_rate=" + rental_rate
-//				+ ", length=" + length + ", replacement_cost=" + replacement_cost + ", rating=" + rating
-//				+ ", specialFeatures=" + specialFeatures + ", actor=" + actor + "]";
+				+ "\tLanguage " + this.language + "\nYou may keep it for " + this.rentalDuration
+				+ " days at a cost of: $" + this.rental_rate + "\nFilm length: " + this.length
+				+ " minutes\nIf you lose or damage it, please pay $" + this.replacement_cost + "\nRating: "
+				+ this.rating + "\t with Special Features: " + this.specialFeatures + "\nCategory: " + this.category
+				+ "\nCast: " + this.actor;
 	}
 
 	@Override
@@ -310,4 +298,3 @@ public class Film {
 	}
 
 }
-
